@@ -1,0 +1,34 @@
+
+#########################################
+# anomaly source dataset
+#########################################
+
+wget https://www.robots.ox.ac.uk/~vgg/data/dtd/download/dtd-r1.0.1.tar.gz
+tar -xf dtd-r1.0.1.tar.gz
+
+
+#########################################
+# train  -->  takes time... stopped at around 200 epochs but not good results in test
+#########################################
+
+# export LD_LIBRARY_PATH=/home/kswada/kw/mvtech_ad/draem/venv/lib/python3.8/site-packages/nvidia/cublas/lib:$LD_LIBRARY_PATH
+
+python train_DRAEM.py --gpu_id 0 --obj_id -1 --lr 0.0001 --bs 8 --epochs 700 \
+--data_path /media/kswada/MyFiles/dataset/mvtec_ad/ \
+--anomaly_source_path /media/kswada/MyFiles/dataset/dtd/images/ \
+--checkpoint_path ./results/checkpoints/ \
+--log_path ./results/logs/
+
+
+#########################################
+# test  -->  run short of GPU memory .... only run by CPU
+#########################################
+
+PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:2048 \
+python test_DRAEM.py --gpu_id 0 \
+--base_model_name "DRAEM_test_0.0001_700_bs8" \
+--data_path /media/kswada/MyFiles/dataset/mvtec_ad/ \
+--checkpoint_path ./results/checkpoints/
+
+
+

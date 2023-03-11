@@ -1,0 +1,17 @@
+*/venv
+*/.idea
+*/__pycashe__
+*/checkpoints
+*/checkpoint
+draem/results
+fastflow/_fastflow_experiment_checkpoints
+ocr_gan/data
+*/01_data
+*/04_output
+patchcore_anomalib
+patchcore_official
+regad/KMNIST
+regad/MNIST
+student_teacher/data
+student_teacher/model
+
